@@ -192,22 +192,22 @@ const products = [
     model: "models/sofa.glb"
   },
   {
-    name: "Moder Sofa",
-    price: 45999,
-    image: "images/sofa2.jpg",
-    model: "models/sofa.glb"
+    name: "Outdoor Chair",
+    price: 5999,
+    image: "images/chair_outdoor.jpg",
+    model: "models/chair_outdoor.glb"
   },
   {
     name: "Arm Chair",
-    price: 49999,
-    image: "images/armchair.jpg",
-    model: "models/armchair.glb"
+    price: 9999,
+    image: "images/armchair2.jpg",
+    model: "models/armchair2.glb"
   },
   {
-    name: "Bar Cart",
-    price: 999,
-    image: "images/bar_carts.jpg",
-    model: "models/bar_cart.glb"
+    name: "Closet",
+    price: 10999,
+    image: "images/closet.jpg",
+    model: "models/closet.glb"
   },
   {
     name: "Bed",
@@ -220,6 +220,60 @@ const products = [
     price: 11999,
     image: "images/ottoman.jpg",
     model: "models/ottoman.glb"
+  },
+  {
+    name: "Leather Couch",
+    price: 25999,
+    image: "images/leather_couch.jpg",
+    model: "models/leather_couch.glb"
+  },
+  {
+    name: "Cofee Table",
+    price: 7999,
+    image: "images/coffe table.jpg",
+    model: "models/coffee table.glb"
+  },
+  {
+    name: "Double Bed",
+    price: 15999,
+    image: "images/double bed.jpg",
+    model: "models/double bed.glb"
+  },
+  {
+    name: "Dresser",
+    price: 17999,
+    image: "images/dresser.jpg",
+    model: "models/dresser.glb"
+  },
+  {
+    name: "Modern Sofa",
+    price: 19999,
+    image: "images/modern_sofa.jpg",
+    model: "models/modern_sofa.glb"
+  },
+  {
+    name: "Office Chair",
+    price: 8999,
+    image: "images/office chair.png",
+    model: "models/office chair.glb"
+  },
+  {
+    name: "Outdoor Sofa",
+    price: 19999,
+    image: "images/outdoor_sofa.jpg",
+    model: "models/outdoors_sofa.glb"
+  },
+  {
+    name: "Sofa",
+    price: 10999,
+    image: "images/sofa2.jpg",
+    model: "models/sofa2.glb"
+  },
+  {
+    name: "TV Stand",
+    price: 14999,
+    image: "images/tv_stand.jpg",
+    model: "models/tv_stand.glb"
   }
 ];
 
