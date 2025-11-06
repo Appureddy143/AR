@@ -188,7 +188,7 @@ const products = [
   {
     name: "Modern Sofa",
     price: 24999,
-    image: "images/sofa.jpg",
+    image: "images/sofa2.jpg",
     model: "models/sofa.glb"
   },
   {
