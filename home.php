@@ -198,28 +198,28 @@ const products = [
     model: "models/tv.glb"
   },
   {
-    name: "Diamond Ring",
+    name: "Arm Chair",
     price: 49999,
-    image: "images/ring.jpg",
-    model: "models/ring.glb"
+    image: "images/armchair.jpg",
+    model: "models/armchair.glb"
   },
   {
-    name: "Table Lamp",
+    name: "Bar Cart",
     price: 999,
-    image: "images/lamp.jpg",
-    model: "models/lamp.glb"
+    image: "images/bar_carts.jpg",
+    model: "models/bar_cart.glb"
   },
   {
-    name: "Luxury Watch",
+    name: "Bed",
     price: 11999,
-    image: "images/watch.jpg",
-    model: "models/watch.glb"
+    image: "images/bed 2.jpg",
+    model: "models/bed 2.glb"
   },
     {
-    name: "Luxury Watch",
+    name: "Leather Couch",
     price: 11999,
-    image: "images/watch.jpg",
-    model: "models/watch.glb"
+    image: "images/leather_couch.png",
+    model: "models/leather_couch.glb"
   }
 ];
 
