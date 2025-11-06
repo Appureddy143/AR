@@ -1,20 +1,17 @@
-# Use the official PHP-Apache image
+# Use PHP + Apache
 FROM php:8.2-apache
 
-# Set working directory
+# Working directory
 WORKDIR /var/www/html
 
-# Copy all project files into the container
+# Copy all files (PHP, models, images, CSS, JS)
 COPY . /var/www/html/
 
-# Enable Apache mod_rewrite (good for PHP routing)
+# Enable Apache rewrite module
 RUN a2enmod rewrite
 
-# Set permissions for Apache
-RUN chown -R www-data:www-data /var/www/html
-
-# Expose port 80 for HTTP traffic
+# Expose port 80
 EXPOSE 80
 
-# Start Apache server
+# Start Apache
 CMD ["apache2-foreground"]
