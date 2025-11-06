@@ -201,7 +201,7 @@ const products = [
     name: "Arm Chair",
     price: 9999,
     image: "images/armchair2.jpg",
-    model: "models/armchair2.glb"
+    model: "models/arm_chair_furniture.glb"
   },
   {
     name: "Closet",
@@ -226,18 +226,6 @@ const products = [
     price: 25999,
     image: "images/leather_couch.jpg",
     model: "models/leather_couch.glb"
-  },
-  {
-    name: "Cofee Table",
-    price: 7999,
-    image: "images/coffe table.jpg",
-    model: "models/coffee table.glb"
-  },
-  {
-    name: "Double Bed",
-    price: 15999,
-    image: "images/double bed.jpg",
-    model: "models/double bed.glb"
   },
   {
     name: "Dresser",
