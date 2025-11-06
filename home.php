@@ -1,105 +1,255 @@
 <?php
-// admin.php - Upload new products
-
-$imgDir = __DIR__ . '/uploads/images/';
-$modelDir = __DIR__ . '/uploads/models/';
-if (!is_dir($imgDir)) mkdir($imgDir, 0777, true);
-if (!is_dir($modelDir)) mkdir($modelDir, 0777, true);
-$msg = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name']);
-    $price = (float)$_POST['price'];
-
-    // Upload image
-    $imgPath = '';
-    if (!empty($_FILES['image']['name'])) {
-        $imgName = time() . '_' . basename($_FILES['image']['name']);
-        $target = $imgDir . $imgName;
-        move_uploaded_file($_FILES['image']['tmp_name'], $target);
-        $imgPath = 'uploads/images/' . $imgName;
-    }
-
-    // Upload model
-    $modelPath = '';
-    if (!empty($_FILES['model']['name'])) {
-        $modelName = time() . '_' . basename($_FILES['model']['name']);
-        $target = $modelDir . $modelName;
-        move_uploaded_file($_FILES['model']['tmp_name'], $target);
-        $modelPath = 'uploads/models/' . $modelName;
-    }
-
-    // Save product to JSON
-    $file = __DIR__ . '/products.json';
-    $products = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
-    $products[] = ['name'=>$name,'price'=>$price,'image'=>$imgPath,'model'=>$modelPath];
-    file_put_contents($file, json_encode($products, JSON_PRETTY_PRINT));
-    $msg = "✅ Product '{$name}' uploaded successfully!";
-}
+// index.php
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin | Ariva Product Upload</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ariva India | 3D & AR Product Viewer</title>
+
+<!-- Google Model Viewer for 3D + AR -->
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
 <style>
+:root {
+  --accent:#ffd600;
+  --dark:#111;
+  --bg:#fafafa;
+  --card:#fff;
+  --shadow:0 6px 18px rgba(0,0,0,0.06);
+  --text:#222;
+}
+* { box-sizing:border-box; }
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  margin: 0;
+  margin:0;
+  font-family: Inter, system-ui, sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
-.container {
-  max-width: 600px;
-  margin: 60px auto;
-  background: #fff;
-  padding: 25px 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+
+/* Top Bar */
+.top-bar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 20px;
+  background:var(--dark);
+  color:#fff;
 }
-h2 { text-align: center; color: #111; }
-label { display:block; font-weight:600; margin-top:10px; }
-input, button {
-  width:100%;
-  padding:10px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  margin-top:6px;
-}
-button {
-  background:#ffd600;
-  border:none;
-  color:#111;
+.logo-text {
+  font-size:24px;
   font-weight:700;
+  letter-spacing:2px;
+  color:var(--accent);
+}
+.icon-row { display:flex; gap:12px; }
+.icon-btn {
+  background:none;
+  border:0;
+  color:#fff;
+  font-size:20px;
   cursor:pointer;
 }
-button:hover { background:#ffe44d; }
-.msg { text-align:center; color:green; font-weight:bold; margin-bottom:10px; }
-a.back { text-decoration:none; display:block; text-align:center; margin-top:12px; color:#333; }
+
+/* Container */
+.container {
+  padding:20px;
+  max-width:1200px;
+  margin:0 auto;
+}
+h2 { text-align:center; margin-bottom:10px; }
+
+/* Product Grid */
+.product-grid {
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  justify-content:center;
+}
+.product-card {
+  width:260px;
+  background:var(--card);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  padding:14px;
+  text-align:center;
+  transition:transform .2s;
+}
+.product-card:hover { transform:translateY(-5px); }
+.product-card img {
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:8px;
+}
+.product-name { font-weight:600; margin-top:10px; }
+.product-price { color:var(--dark); font-weight:700; margin:6px 0; }
+
+/* Buttons */
+.btn {
+  border:0;
+  background:var(--accent);
+  color:#000;
+  padding:8px 12px;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer;
+  transition:background .2s;
+}
+.btn:hover { background:#ffe44d; }
+
+/* 3D Modal */
+.modal-bg {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+.modal {
+  background:#fff;
+  border-radius:12px;
+  max-width:600px;
+  width:90%;
+  padding:20px;
+  position:relative;
+}
+.close-btn {
+  position:absolute;
+  top:10px;
+  right:14px;
+  border:none;
+  background:none;
+  font-size:22px;
+  cursor:pointer;
+  color:#444;
+}
+model-viewer {
+  width:100%;
+  height:400px;
+  background:#f4f4f4;
+  border-radius:10px;
+}
+footer {
+  text-align:center;
+  padding:16px;
+  background:var(--dark);
+  color:#fff;
+  font-size:14px;
+  margin-top:30px;
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <h2>Upload New Product</h2>
-  <?php if($msg) echo "<p class='msg'>$msg</p>"; ?>
 
-  <form method="post" enctype="multipart/form-data">
-    <label>Product Name</label>
-    <input type="text" name="name" required>
-
-    <label>Price (₹)</label>
-    <input type="number" name="price" step="0.01" required>
-
-    <label>Product Image (.jpg, .png)</label>
-    <input type="file" name="image" accept="image/*" required>
-
-    <label>3D Model (.glb, .gltf)</label>
-    <input type="file" name="model" accept=".glb,.gltf" required>
-
-    <button type="submit">Upload Product</button>
-  </form>
-
-  <a class="back" href="index.php">← Back to Store</a>
+<div class="top-bar">
+  <div class="logo-text">ARIVA</div>
+  <div class="icon-row">
+    <button class="icon-btn" title="Orders">🛍</button>
+    <button class="icon-btn" title="Profile">👤</button>
+    <button class="icon-btn" title="Wishlist">❤️</button>
+    <button class="icon-btn" title="Cart">🛒</button>
+  </div>
 </div>
+
+<div class="container">
+  <h2>Shop with 3D & AR Experience</h2>
+  <div class="product-grid" id="productGrid"></div>
+</div>
+
+<!-- 3D Modal -->
+<div class="modal-bg" id="modelModal">
+  <div class="modal">
+    <button class="close-btn" onclick="closeModelView()">×</button>
+    <h3 id="modelTitle"></h3>
+    <model-viewer id="modelViewer"
+                  src=""
+                  alt="3D Model"
+                  ar
+                  ar-modes="webxr scene-viewer quick-look"
+                  camera-controls
+                  auto-rotate
+                  shadow-intensity="1"
+                  exposure="1.0"
+                  poster="images/loading.gif">
+    </model-viewer>
+    <p style="text-align:center; margin-top:10px;">Rotate, zoom, or view in AR (mobile supported)</p>
+  </div>
+</div>
+
+<footer>© 2025 Ariva India | Experience Products in 3D & AR</footer>
+
+<script>
+// Product Data (using LOCAL GLB files)
+const products = [
+  {
+    name: "Modern Sofa",
+    price: 24999,
+    image: "images/sofa.jpg",
+    model: "models/sofa.glb"
+  },
+  {
+    name: "LED Smart TV",
+    price: 45999,
+    image: "images/tv.jpg",
+    model: "models/tv.glb"
+  },
+  {
+    name: "Diamond Ring",
+    price: 49999,
+    image: "images/ring.jpg",
+    model: "models/ring.glb"
+  },
+  {
+    name: "Table Lamp",
+    price: 999,
+    image: "images/lamp.jpg",
+    model: "models/lamp.glb"
+  },
+  {
+    name: "Luxury Watch",
+    price: 11999,
+    image: "images/watch.jpg",
+    model: "models/watch.glb"
+  }
+];
+
+// Render product cards
+const grid = document.getElementById('productGrid');
+products.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'product-card';
+  card.innerHTML = `
+    <img src="${p.image}" alt="${p.name}">
+    <div class="product-name">${p.name}</div>
+    <div class="product-price">₹${p.price.toLocaleString()}</div>
+    <button class="btn" onclick="openModelView('${p.name}', '${p.model}')">👁 View in 3D / AR</button>
+  `;
+  grid.appendChild(card);
+});
+
+// Modal control
+function openModelView(name, modelUrl) {
+  document.getElementById('modelTitle').textContent = name;
+  const viewer = document.getElementById('modelViewer');
+  viewer.setAttribute('src', modelUrl);
+  document.getElementById('modelModal').style.display = 'flex';
+}
+
+function closeModelView() {
+  document.getElementById('modelModal').style.display = 'none';
+  document.getElementById('modelViewer').removeAttribute('src');
+}
+
+// Optional: handle load errors
+const viewer = document.getElementById('modelViewer');
+viewer.addEventListener('error', () => {
+  alert('⚠️ Unable to load 3D model. Check if the file exists in /models/');
+});
+</script>
+
 </body>
 </html>
