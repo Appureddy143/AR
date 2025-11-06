@@ -187,7 +187,7 @@ const products = [
     name: "Modern Sofa",
     price: 24999,
     image: "https://www.shutterstock.com/image-photo/modern-fashionable-stylish-pink-sofa-600nw-1377591560.jpg",
-    model: "https://modelviewer.dev/shared-assets/models/Chair.glb",
+    model: "https://modelviewer.dev/shared-assets/models/chair.glb",
   },
   {
     name: "Smartphone X10",
