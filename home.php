@@ -198,12 +198,6 @@ const products = [
     model: "models/chair_outdoor.glb"
   },
   {
-    name: "Arm Chair",
-    price: 9999,
-    image: "images/armchair2.jpg",
-    model: "models/arm_chair_furniture.glb"
-  },
-  {
     name: "Closet",
     price: 10999,
     image: "images/closet.jpg",
