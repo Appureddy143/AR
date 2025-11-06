@@ -214,6 +214,12 @@ const products = [
     price: 11999,
     image: "images/watch.jpg",
     model: "models/watch.glb"
+  },
+    {
+    name: "Luxury Watch",
+    price: 11999,
+    image: "images/watch.jpg",
+    model: "models/watch.glb"
   }
 ];
 
