@@ -192,10 +192,10 @@ const products = [
     model: "models/sofa.glb"
   },
   {
-    name: "LED Smart TV",
+    name: "Moder Sofa",
     price: 45999,
-    image: "images/tv.jpg",
-    model: "models/tv.glb"
+    image: "images/sofa2.jpg",
+    model: "models/sofa.glb"
   },
   {
     name: "Arm Chair",
