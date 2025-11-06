@@ -216,10 +216,10 @@ const products = [
     model: "models/bed 2.glb"
   },
     {
-    name: "Leather Couch",
+    name: "Ottoman",
     price: 11999,
-    image: "images/leather_couch.png",
-    model: "models/leather_couch.glb"
+    image: "images/ottoman.jpg",
+    model: "models/ottoman.glb"
   }
 ];
 
