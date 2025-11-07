@@ -231,7 +231,7 @@ const products = [
   {
     name: "Leather Couch",
     price: 25999,
-    image: "models/leather_couch.jpg",
+    image: "models/leather_couch.png",
     model: "models/leather_couch.glb"
   },
   {
