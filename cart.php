@@ -46,6 +46,9 @@ button:hover {
 <body>
 
 <h1>🛒 Your Cart</h1>
+  <button id="startVoice" style="background:#ffd600;padding:10px 16px;border:none;border-radius:8px;cursor:pointer;">
+🎙️ Start Voice
+  </button>
 <p>Items added via voice or buttons will appear here.</p>
 
 <div id="cartContainer"></div>
@@ -106,12 +109,22 @@ if ("webkitSpeechRecognition" in window) {
     } else if (command.includes("go back") || command.includes("home")) {
       speak("Going back to home");
       setTimeout(() => { window.location.href = "home.php"; }, 500);
+    }else if (command.includes("clear cart")) {
+      clearCart();
     }
   };
 
-  recognition.start();
+  recognition.onerror = (event) => console.log("Recognition error:", event.error);
 }
 
+// Start when user clicks button
+document.getElementById("startVoice").addEventListener("click", () => {
+  if (recognition) {
+
+  recognition.start();
+}
+  
+});
 // ---- Remove by name ----
 function removeByName(name) {
   const index = cart.findIndex(p => p.name.toLowerCase().includes(name));
