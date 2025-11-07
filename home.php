@@ -234,6 +234,25 @@ const products = [
 // state
 let cart = [];
 let wishlist = [];
+// --- Persistent storage helpers ---
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+function loadCart() {
+  const data = localStorage.getItem("cart");
+  if (data) cart = JSON.parse(data);
+}
+function saveWishlist() {
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+}
+function loadWishlist() {
+  const data = localStorage.getItem("wishlist");
+  if (data) wishlist = JSON.parse(data);
+}
+
+// Load saved data on page start
+loadCart();
+loadWishlist();
 
 // Render products
 const grid = document.getElementById('productGrid');
@@ -274,33 +293,37 @@ function closeModelView() {
 }
 
 // Wishlist toggle by product index (reliable)
-function toggleWishlistIndex(idx) {
-  const item = products[idx];
-  const heartEl = document.getElementById(`heart-${idx}`);
-  const exists = wishlist.find(p => p.name === item.name);
-  if (!exists) {
-    wishlist.push(item);
-    heartEl.classList.add('active');
-    speak(`${item.name} added to wishlist`);
-  } else {
-    wishlist = wishlist.filter(p => p.name !== item.name);
-    heartEl.classList.remove('active');
-    speak(`${item.name} removed from wishlist`);
-  }
-}
-
-// addToCart: accept name or exact match
 function addToCart(name) {
   if (!name) { speak("Please tell which product to add"); return; }
   const item = products.find(p => p.name.toLowerCase().includes(name.toLowerCase()));
   if (item) {
     cart.push(item);
+    saveCart();
     speak(`Added ${item.name} to your cart.`);
     console.log("Cart:", cart);
   } else {
     speak("Couldn't find any product matching " + name);
   }
 }
+
+function toggleWishlistIndex(idx) {
+  const item = products[idx];
+  const heartEl = document.getElementById(`heart-${idx}`);
+  const exists = wishlist.find(p => p.name === item.name);
+  if (!exists) {
+    wishlist.push(item);
+    saveWishlist();
+    heartEl.classList.add('active');
+    speak(`${item.name} added to wishlist`);
+  } else {
+    wishlist = wishlist.filter(p => p.name !== item.name);
+    saveWishlist();
+    heartEl.classList.remove('active');
+    speak(`${item.name} removed from wishlist`);
+  }
+}
+
+
 
 // buyNow: navigate to checkout with encoded product name
 function buyNow(name) {
