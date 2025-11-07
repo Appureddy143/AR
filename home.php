@@ -421,17 +421,21 @@ function handleVoiceCommand(rawCmd) {
   // navigation
 if (cmd.includes("open cart") || cmd.includes("go to cart")) return navigateTo("cart.php");
 if (
-  cmd.includes("open wishlist") ||
-  cmd.includes("go to wishlist") ||
+  cmd.includes("wishlist") ||
+  cmd.includes("favorite") ||
+  cmd.includes("favourites") ||
+  cmd.includes("my wishlist") ||
   cmd.includes("wishlist page") ||
   cmd.includes("show wishlist") ||
-  cmd.includes("show my favorites") ||
-  cmd.includes("wishlist")
+  cmd.includes("open wishlist") ||
+  cmd.includes("go to wishlist")
 ) {
-  alert("Opening Wishlist ✅"); // ✅ visible confirmation on mobile
   speak("Opening wishlist");
-  return navigateTo("wishlist.php");
+  setTimeout(() => { window.location.href = "wishlist.php"; }, 1500);
+  return;
 }
+
+if (cmd.includes("home") || cmd.includes("shop")) return navigateTo("home.php");
 if (cmd.includes("open profile")) return navigateTo("profile.php");
 if (cmd.includes("open orders")) return navigateTo("orders.php");
 
@@ -498,6 +502,69 @@ if (cmd.includes("open") || cmd.includes("view") || cmd.includes("show")) {
 
   speak("Sorry, I didn't understand that command.");
 }
+
+  // ======== MODEL CONTROL BY VOICE ========
+
+// Rotate or move the 3D model inside the viewer
+function control3DModel(cmd) {
+  const viewer = document.getElementById('modelViewer');
+  if (!viewer || !viewer.hasAttribute('src')) {
+    speak("Please open a product in 3D first");
+    return;
+  }
+
+  let orbit = viewer.getCameraOrbit(); // current orbit
+  let { theta, phi, radius } = orbit;
+  const deg = Math.PI / 12; // rotation step (15 degrees)
+  const zoomStep = 0.2;
+
+  if (cmd.includes("left")) {
+    theta -= deg;
+    speak("Turning left");
+  } else if (cmd.includes("right")) {
+    theta += deg;
+    speak("Turning right");
+  } else if (cmd.includes("up")) {
+    phi -= deg;
+    speak("Moving up");
+  } else if (cmd.includes("down")) {
+    phi += deg;
+    speak("Moving down");
+  } else if (cmd.includes("zoom in")) {
+    radius -= zoomStep;
+    speak("Zooming in");
+  } else if (cmd.includes("zoom out")) {
+    radius += zoomStep;
+    speak("Zooming out");
+  } else if (cmd.includes("stop rotation")) {
+    viewer.autoRotate = false;
+    speak("Stopped auto rotation");
+    return;
+  } else if (cmd.includes("start rotation") || cmd.includes("rotate")) {
+    viewer.autoRotate = true;
+    speak("Starting auto rotation");
+    return;
+  } else {
+    speak("I didn't understand the model control command");
+    return;
+  }
+
+  // update model-viewer orbit
+  viewer.cameraOrbit = `${theta}rad ${phi}rad ${radius}m`;
+}
+
+// Extend handleVoiceCommand to detect these commands
+const originalHandle = handleVoiceCommand;
+handleVoiceCommand = function (rawCmd) {
+  const cmd = cleanCommand(rawCmd);
+  // if user says anything like "turn left/right", "move up/down", "zoom in/out"
+  if (cmd.includes("left") || cmd.includes("right") || cmd.includes("up") || cmd.includes("down") || cmd.includes("zoom") || cmd.includes("rotate")) {
+    return control3DModel(cmd);
+  }
+  // else fall back to your original command logic
+  originalHandle(rawCmd);
+};
+
 
 // Helpers (some were defined earlier in other script block; ensure accessible)
 function navigateTo(page) {
