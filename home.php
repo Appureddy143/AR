@@ -196,17 +196,158 @@ footer {
 
 <!-- ====== PRODUCT & VIEWER SCRIPT ====== -->
 <script>
+// Product Data (using LOCAL GLB files)
 const products = [
-  { name: "Modern Sofa", price: 24999, image: "models/sofa2.jpg", model: "models/sofa.glb" },
-  { name: "Outdoor Chair", price: 5999, image: "models/chair_outdoor.jpg", model: "models/chair_outdoor.glb" },
-  { name: "Closet", price: 10999, image: "models/closet.jpg", model: "models/closet.glb" },
-  { name: "Bed", price: 11999, image: "models/bed 2.jpg", model: "models/bed 2.glb" },
-  { name: "Ottoman", price: 11999, image: "models/ottoman.jpg", model: "models/ottoman.glb" },
-  { name: "Leather Couch", price: 25999, image: "models/leather_couch.jpg", model: "models/leather_couch.glb" },
-  { name: "Dresser", price: 17999, image: "models/dresser.jpg", model: "models/dresser.glb" },
-  { name: "Office Chair", price: 8999, image: "models/office chair.png", model: "models/office chair.glb" },
-  { name: "Outdoor Sofa", price: 19999, image: "models/outdoor_sofa.jpg", model: "models/outdoors_sofa.glb" },
-  { name: "TV Stand", price: 14999, image: "models/tv_stand.jpg", model: "models/tv_stand.glb" }
+  {
+    name: "Modern Sofa",
+    price: 24999,
+    image: "models/sofa2.jpg",
+    model: "models/sofa.glb"
+  },
+  {
+    name: "Outdoor Chair",
+    price: 5999,
+    image: "models/chair_outdoor.jpg",
+    model: "models/chair_outdoor.glb"
+  },
+  {
+    name: "Closet",
+    price: 10999,
+    image: "models/closet.jpg",
+    model: "models/closet.glb"
+  },
+  {
+    name: "Bed",
+    price: 11999,
+    image: "models/bed 2.jpg",
+    model: "models/bed 2.glb"
+  },
+    {
+    name: "Ottoman",
+    price: 11999,
+    image: "models/ottoman.jpg",
+    model: "models/ottoman.glb"
+  },
+  {
+    name: "Leather Couch",
+    price: 25999,
+    image: "models/leather_couch.jpg",
+    model: "models/leather_couch.glb"
+  },
+  {
+    name: "Dresser",
+    price: 17999,
+    image: "models/dresser.jpg",
+    model: "models/dresser.glb"
+  },
+  {
+    name: "Modern Sofa",
+    price: 19999,
+    image: "models/modern_sofa.jpg",
+    model: "models/modern_sofa.glb"
+  },
+  {
+    name: "Office Chair",
+    price: 8999,
+    image: "models/office chair.png",
+    model: "models/office chair.glb"
+  },
+  {
+    name: "Outdoor Sofa",
+    price: 19999,
+    image: "models/outdoor_sofa.jpg",
+    model: "models/outdoors_sofa.glb"
+  },
+  {
+    name: "Sofa",
+    price: 10999,
+    image: "models/sofa2.jpg",
+    model: "models/sofa2.glb"
+  },
+  {
+    name: "TV Stand",
+    price: 14999,
+    image: "models/tv_stand.jpg",
+    model: "models/tv_stand.glb"
+  }, 
+ {
+    name: "glasses",
+    price: 599,
+    image: "models/glasses.jpg",
+    model: "models/00741558210359.glb"
+  }, 
+ {
+    name: "Ring",
+    price: 14999,
+    image: "models/ring_turtle.jpg",
+    model: "models/ring_with_turtle.glb"
+  }, 
+ {
+    name: "Earrings",
+    price: 199,
+    image: "models/daisy_earrings.jpg",
+    model: "models/daisy_hoop_earrings_-_silver_and_gold.glb"
+  }, 
+ {
+    name: "Bracelet",
+    price: 299,
+    image: "models/bracelet.jpg",
+    model: "models/bracelet.glb"
+  }, 
+ {
+    name: "Indian jewellery",
+    price: 999,
+    image: "models/Indian_jewellery.jpg",
+    model: "models/Indian_jewellery.glb"
+  },
+{
+    name: "CMA Sunscreen",
+    price: 699,
+    image: "models/sunscreen.jpg",
+    model: "models/cosmetic_product.glb"
+  },
+{
+    name: "CC Cream",
+    price: 99,
+    image: "models/biege_cream.jpg",
+    model: "models/cosmetics_beige_cream_tube.glb"
+  },
+{
+    name: "Serum",
+    price: 499,
+    image: "models/serum.jpg",
+    model: "models/cosmetic_serum_bottle.glb"
+  },
+{
+    name: "Lipstick",
+    price: 99,
+    image: "models/lipstick.jpg",
+    model: "models/lipstick.glb"
+  },
+{
+    name: "TF Lipstick",
+    price: 149,
+    image: "models/lipstick_brown.jpg",
+    model: "models/lipstick_by_tom_ford.glb"
+  },
+{
+    name: "compact powder",
+    price: 199,
+    image: "models/compact.jpg",
+    model: "models/cosmetic_-_powder.glb"
+  },
+{
+    name: "Necklace",
+    price: 149,
+    image: "models/necklace.jpg",
+    model: "models/necklace_b.glb"
+  },
+{
+    name: "Cuban Chain",
+    price: 1999,
+    image: "models/cuban_chain.jpg",
+    model: "models/cuban_chain_3d_model.glb"
+  }
 ];
 
 // Render products
