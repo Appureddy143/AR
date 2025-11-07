@@ -440,27 +440,52 @@ if (cmd.includes("open profile")) return navigateTo("profile.php");
 if (cmd.includes("open orders")) return navigateTo("orders.php");
 
 
-  // close viewer
+  recognition.onresult = function(event) {
+  let cmd = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
+  console.log("Voice command:", cmd);
+
+  // ---- Normalize speech quirks ----
+  cmd = cmd
+    .replace(/\b3 d\b/g, "3d")
+    .replace(/\ba r\b/g, "ar")
+    .replace(/\bair\b/g, "ar")
+    .replace(/\bthe\b/g, "") // remove filler words like "the"
+    .replace(/\bplease\b/g, "")
+    .trim();
+
+  // ---- Close viewer ----
   if (cmd.includes("close model") || cmd.includes("close viewer") || cmd.includes("close 3d")) {
     speak("Closing viewer");
-    return closeModelView();
+    closeModelView();
+    return;
   }
 
-  // 3D / AR open (phrases like "open sofa in 3d" or "open sofa in ar")
-  // Handle 3D / AR voice commands more flexibly
-if (cmd.includes("open") || cmd.includes("view") || cmd.includes("show")) {
-  // Normalize spaces and speech errors (e.g. "3 d" -> "3d", "a r" -> "ar", "air" -> "ar")
-  cmd = cmd.replace(/\b3 d\b/g, "3d").replace(/\ba r\b/g, "ar").replace(/\bair\b/g, "ar");
-
-  if (cmd.includes("3d") || cmd.includes("ar")) {
-    // Extract item name between "open/view/show" and "3d/ar"
+  // ---- Open product in 3D / AR ----
+  if (
+    (cmd.includes("open") || cmd.includes("view") || cmd.includes("show")) &&
+    (cmd.includes("3d") || cmd.includes("ar"))
+  ) {
+    // Extract product name between open/view/show and 3d/ar
     let item = cmd.replace(/open|view|show|in|3d|ar/g, "").trim();
-    if (item) {
-      speak("Opening " + item + " in viewer");
-      return openProductIn3D(item);
+
+    console.log("Extracted product:", item);
+
+    if (!item) {
+      speak("Please say the product name to open in 3D");
+      return;
     }
+
+    speak("Opening " + item + " in viewer");
+    openProductIn3D(item);
+    return;
   }
-}
+
+  // ---- Other commands (like add to cart, go to cart, etc.) here ----
+  
+  else {
+    speak("Command not understood");
+  }
+};
 
 
   // Buy commands: "buy lipstick" or "buy lipstick now"
@@ -589,6 +614,7 @@ function highlightProduct(name) {
   });
   if(!found) speak("Couldn't find any product matching " + name);
 }
+
 function openProductIn3D(name) {
   if(!name) { speak("Please say product name"); return; }
   const needle = name.toLowerCase();
@@ -602,8 +628,7 @@ function openProductIn3D(name) {
     }
   }
   if(!found) speak("No 3D model found for " + name);
-}
-
+  }
 // addToCart is defined in previous script tag but ensure accessible here (it is)
 
 // addToWishlistByName defined in previous script tag
