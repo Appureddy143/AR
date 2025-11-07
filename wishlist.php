@@ -6,4 +6,21 @@
 <p>Your favorite items will be listed here.</p>
 <a href="home.php" style="text-decoration:none;color:#000;background:#ffd600;padding:10px 16px;border-radius:6px;">⬅ Back to Shop</a>
 </body>
+  <script>
+
+const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+
+const container = document.getElementById("wishlistContainer"); // or wishlistContainer
+if (container && wishlist.length > 0) {
+  container.innerHTML = wishlist.map(p => `
+    <div class="item">
+      <img src="${p.image}" width="80">
+      <div>${p.name} - ₹${p.price}</div>
+    </div>
+  `).join("");
+} else if (container) {
+  container.innerHTML = "<p>Your wishlist is empty.</p>";
+}
+</script>
+
 </html>
