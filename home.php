@@ -443,11 +443,21 @@ if (cmd.includes("open orders")) return navigateTo("orders.php");
   }
 
   // 3D / AR open (phrases like "open sofa in 3d" or "open sofa in ar")
-  if ((cmd.includes("open") && (cmd.includes("3d") || cmd.includes("ar"))) || cmd.includes("view in 3d") || cmd.includes("view in ar")) {
-    // Extract product name: remove 'open', 'in 3d', 'in ar', 'view', 'show'
-    let item = cmd.replace(/open|view|show/g, '').replace(/in 3d|in ar|3d|ar/g, '').trim();
-    if (item) return openProductIn3D(item);
+  // Handle 3D / AR voice commands more flexibly
+if (cmd.includes("open") || cmd.includes("view") || cmd.includes("show")) {
+  // Normalize spaces and speech errors (e.g. "3 d" -> "3d", "a r" -> "ar", "air" -> "ar")
+  cmd = cmd.replace(/\b3 d\b/g, "3d").replace(/\ba r\b/g, "ar").replace(/\bair\b/g, "ar");
+
+  if (cmd.includes("3d") || cmd.includes("ar")) {
+    // Extract item name between "open/view/show" and "3d/ar"
+    let item = cmd.replace(/open|view|show|in|3d|ar/g, "").trim();
+    if (item) {
+      speak("Opening " + item + " in viewer");
+      return openProductIn3D(item);
+    }
   }
+}
+
 
   // Buy commands: "buy lipstick" or "buy lipstick now"
   if (cmd.startsWith("buy ") || cmd.startsWith("purchase ") || cmd.startsWith("i want to buy ")) {
