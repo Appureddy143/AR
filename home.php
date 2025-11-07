@@ -188,73 +188,73 @@ const products = [
   {
     name: "Modern Sofa",
     price: 24999,
-    image: "images/sofa2.jpg",
+    image: "models/sofa2.jpg",
     model: "models/sofa.glb"
   },
   {
     name: "Outdoor Chair",
     price: 5999,
-    image: "images/chair_outdoor.jpg",
+    image: "models/chair_outdoor.jpg",
     model: "models/chair_outdoor.glb"
   },
   {
     name: "Closet",
     price: 10999,
-    image: "images/closet.jpg",
+    image: "models/closet.jpg",
     model: "models/closet.glb"
   },
   {
     name: "Bed",
     price: 11999,
-    image: "images/bed 2.jpg",
+    image: "models/bed 2.jpg",
     model: "models/bed 2.glb"
   },
     {
     name: "Ottoman",
     price: 11999,
-    image: "images/ottoman.jpg",
+    image: "models/ottoman.jpg",
     model: "models/ottoman.glb"
   },
   {
     name: "Leather Couch",
     price: 25999,
-    image: "images/leather_couch.jpg",
+    image: "models/leather_couch.jpg",
     model: "models/leather_couch.glb"
   },
   {
     name: "Dresser",
     price: 17999,
-    image: "images/dresser.jpg",
+    image: "models/dresser.jpg",
     model: "models/dresser.glb"
   },
   {
     name: "Modern Sofa",
     price: 19999,
-    image: "images/modern_sofa.jpg",
+    image: "models/modern_sofa.jpg",
     model: "models/modern_sofa.glb"
   },
   {
     name: "Office Chair",
     price: 8999,
-    image: "images/office chair.png",
+    image: "models/office chair.png",
     model: "models/office chair.glb"
   },
   {
     name: "Outdoor Sofa",
     price: 19999,
-    image: "images/outdoor_sofa.jpg",
+    image: "models/outdoor_sofa.jpg",
     model: "models/outdoors_sofa.glb"
   },
   {
     name: "Sofa",
     price: 10999,
-    image: "images/sofa2.jpg",
+    image: "models/sofa2.jpg",
     model: "models/sofa2.glb"
   },
   {
     name: "TV Stand",
     price: 14999,
-    image: "images/tv_stand.jpg",
+    image: "models/tv_stand.jpg",
     model: "models/tv_stand.glb"
   }
 ];
