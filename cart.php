@@ -46,9 +46,7 @@ button:hover {
 <body>
 
 <h1>🛒 Your Cart</h1>
-  <button id="startVoice" style="background:#ffd600;padding:10px 16px;border:none;border-radius:8px;cursor:pointer;">
-🎙️ Start Voice
-  </button>
+  
 <p>Items added via voice or buttons will appear here.</p>
 
 <div id="cartContainer"></div>
