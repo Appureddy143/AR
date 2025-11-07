@@ -14,12 +14,18 @@ const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
 
 const container = document.getElementById("wishlistContainer"); // or wishlistContainer
 if (container && wishlist.length > 0) {
-  container.innerHTML = wishlist.map(p => `
-    <div class="item">
-      <img src="${p.image}" width="80">
-      <div>${p.name} - ₹${p.price}</div>
-    </div>
-  `).join("");
+  container.innerHTML = wishlist.map((p, index) => `
+  <div class="item" style="margin:10px;padding:10px;border:1px solid #ddd;border-radius:8px;background:white;">
+    <img src="${p.image}" width="80"><br>
+    <div>${p.name} - ₹${p.price}</div>
+    <button onclick="removeFromWishlist(${index})" style="margin-top:5px;">Remove</button>
+  </div>
+`).join("");
+
+function removeFromWishlist(index) {
+  wishlist.splice(index, 1);
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  location.reload();
 } else if (container) {
   container.innerHTML = "<p>Your wishlist is empty.</p>";
 }
