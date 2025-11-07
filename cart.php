@@ -11,6 +11,6 @@ a { text-decoration:none; color:#000; background:#ffd600; padding:10px 16px; bor
 <body>
 <h1>🛒 Your Cart</h1>
 <p>Items added via voice or buttons will appear here.</p>
-<a href="index.php">⬅ Back to Shop</a>
+<a href="home.php">⬅ Back to Shop</a>
 </body>
 </html>
