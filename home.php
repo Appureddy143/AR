@@ -1,6 +1,7 @@
 <?php
 // index.php
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -386,11 +387,17 @@ products.forEach(p => {
   const card = document.createElement('div');
   card.className = 'product-card';
   card.innerHTML = `
-    <img src="${p.image}" alt="${p.name}">
-    <div class="product-name">${p.name}</div>
-    <div class="product-price">₹${p.price.toLocaleString()}</div>
+  <img src="${p.image}" alt="${p.name}">
+  <div class="product-name">${p.name}</div>
+  <div class="product-price">₹${p.price.toLocaleString()}</div>
+  <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:8px;">
     <button class="btn" onclick="openModelView('${p.name}', '${p.model}')">👁 View in 3D / AR</button>
-  `;
+    <button class="btn" onclick="addToCart('${p.name}')">🛒 Add to Cart</button>
+    <button class="btn" onclick="buyNow('${p.name}')">💳 Buy Now</button>
+    <button class="icon-btn" onclick="toggleWishlist('${p.name}', this)" title="Add to Wishlist">❤️</button>
+  </div>
+`;
+
   grid.appendChild(card);
 });
 
@@ -473,6 +480,18 @@ function handleVoiceCommand(cmd) {
   }
 
   speak("Sorry, I didn't understand that command.");
+    // Wishlist command
+  if (cmd.includes("wishlist") || cmd.includes("favorite") || cmd.includes("heart")) {
+    let item = cmd.replace("add", "").replace("to wishlist", "").replace("wishlist", "").replace("favorite", "").replace("heart", "").trim();
+    return addToWishlistByVoice(item);
+  }
+
+  // Buy Now command
+  if (cmd.startsWith("buy")) {
+    let item = cmd.replace("buy", "").trim();
+    return buyNow(item);
+  }
+
 }
 
 // === Helpers ===
@@ -480,6 +499,16 @@ function navigateTo(page) {
   speak("Opening " + page.replace(".php", ""));
   window.location.href = page;
 }
+function addToWishlistByVoice(name) {
+  const item = products.find(p => p.name.toLowerCase().includes(name.toLowerCase()));
+  if (item) {
+    wishlist.push(item);
+    speak(`Added ${item.name} to your wishlist.`);
+  } else {
+    speak("Couldn't find any product named " + name);
+  }
+}
+
 function highlightProduct(name) {
   let found = false;
   document.querySelectorAll(".product-card").forEach(card => {
@@ -513,6 +542,37 @@ function addToCart(name) {
     speak("Couldn't find any product matching " + name);
   }
 }
+let wishlist = [];
+
+function toggleWishlist(name, btnEl) {
+  const index = wishlist.findIndex(p => p.name === name);
+  if (index === -1) {
+    const item = products.find(p => p.name === name);
+    if (item) {
+      wishlist.push(item);
+      btnEl.style.color = "red";
+      speak(`${name} added to wishlist`);
+    }
+  } else {
+    wishlist.splice(index, 1);
+    btnEl.style.color = "";
+    speak(`${name} removed from wishlist`);
+  }
+}
+
+function buyNow(name) {
+  const item = products.find(p => p.name.toLowerCase().includes(name.toLowerCase()));
+  if (item) {
+    speak(`Proceeding to buy ${item.name}`);
+    // Simulated redirect
+    setTimeout(() => {
+      window.location.href = "checkout.php?product=" + encodeURIComponent(item.name);
+    }, 1000);
+  } else {
+    speak("Couldn't find any product named " + name);
+  }
+}
+
 function speak(text) {
   const synth = window.speechSynthesis;
   if (synth) {
@@ -524,6 +584,4 @@ function speak(text) {
 </script>
 
 </body>
-</html>
-
-
+</html>   
