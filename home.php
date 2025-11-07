@@ -419,10 +419,22 @@ function cleanCommand(cmd) {
 function handleVoiceCommand(rawCmd) {
   const cmd = cleanCommand(rawCmd);
   // navigation
-  if (cmd.includes("open cart") || cmd.includes("go to cart")) return navigateTo("cart.php");
-  if (cmd.includes("open wishlist") || cmd.includes("go to wishlist")) return navigateTo("wishlist.php");
-  if (cmd.includes("open profile")) return navigateTo("profile.php");
-  if (cmd.includes("open orders")) return navigateTo("orders.php");
+if (cmd.includes("open cart") || cmd.includes("go to cart")) return navigateTo("cart.php");
+if (
+  cmd.includes("open wishlist") ||
+  cmd.includes("go to wishlist") ||
+  cmd.includes("wishlist page") ||
+  cmd.includes("show wishlist") ||
+  cmd.includes("show my favorites") ||
+  cmd.includes("wishlist")
+) {
+  alert("Opening Wishlist ✅"); // ✅ visible confirmation on mobile
+  speak("Opening wishlist");
+  return navigateTo("wishlist.php");
+}
+if (cmd.includes("open profile")) return navigateTo("profile.php");
+if (cmd.includes("open orders")) return navigateTo("orders.php");
+
 
   // close viewer
   if (cmd.includes("close model") || cmd.includes("close viewer") || cmd.includes("close 3d")) {
