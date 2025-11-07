@@ -271,12 +271,6 @@ const products = [
     model: "models/tv_stand.glb"
   }, 
  {
-    name: "glasses",
-    price: 599,
-    image: "models/glasses.jpg",
-    model: "models/00741558210359.glb"
-  }, 
- {
     name: "Ring",
     price: 14999,
     image: "models/ring_turtle.jpg",
@@ -347,7 +341,43 @@ const products = [
     price: 1999,
     image: "models/cuban_chain.jpg",
     model: "models/cuban_chain_3d_model.glb"
-  }
+  },
+  {
+    name: "Sun Glasses",
+    price: 399,
+    image: "models/glasses.jpg",
+    model: "models/00741558210359.glb"
+  }, 
+  {
+    name: "Rect Sun glasses",
+    price: 499,
+    image: "models/sun_glasses.jpg",
+    model: "models/sun_glasses.glb"
+  }, 
+  {
+    name: "Geometric Sun Glasses",
+    price: 599,
+    image: "models/sunglasses1.jpg",
+    model: "models/sun_glasses(1).glb"
+  }, 
+  {
+    name: "Round Sun glasses",
+    price: 399,
+    image: "models/sunglasses.jpg",
+    model: "models/sunglasses.glb"
+  }, 
+  {
+    name: "Spy Sun Glasses",
+    price: 999,
+    image: "models/sunglasses_spy.jpg",
+    model: "models/glasses_spy_tron_2_-_gafas_pbr.glb"
+  }, 
+  {
+    name: "Narrow Frame Sun Glasses",
+    price: 699,
+    image: "models/sunglasses_low.jpg",
+    model: "models/sun_glasses_-_low_poly.glb"
+  }, 
 ];
 
 // Render products
