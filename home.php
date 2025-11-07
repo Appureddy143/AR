@@ -481,8 +481,11 @@ function handleVoiceCommand(rawCmd) {
 // Helpers (some were defined earlier in other script block; ensure accessible)
 function navigateTo(page) {
   speak("Opening " + page.replace(".php", ""));
-  window.location.href = home.php;
+  setTimeout(() => {
+    window.location.href = page;
+  }, 500); // small delay so speech starts but doesn't block navigation
 }
+
 function highlightProduct(name) {
   if(!name) { speak("Please say product name"); return; }
   const needle = name.toLowerCase();
