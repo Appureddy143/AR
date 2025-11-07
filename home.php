@@ -481,7 +481,7 @@ function handleVoiceCommand(rawCmd) {
 // Helpers (some were defined earlier in other script block; ensure accessible)
 function navigateTo(page) {
   speak("Opening " + page.replace(".php", ""));
-  window.location.href = page;
+  window.location.href = home.php;
 }
 function highlightProduct(name) {
   if(!name) { speak("Please say product name"); return; }
