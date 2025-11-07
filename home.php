@@ -1,6 +1,9 @@
 <?php
 // index.php
 ?>
+<?php
+// index.php
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -491,8 +494,26 @@ function handleVoiceCommand(cmd) {
     let item = cmd.replace("buy", "").trim();
     return buyNow(item);
   }
+  if (cmd.startsWith("buy")) {
+  let item = cmd.replace("buy", "").replace("now", "").trim();
+  speak("Buying " + item);
+  return buyNow(item);
+    
+  }
+  if (cmd.includes("add") && cmd.includes("wishlist")) {
+  let item = cmd.replace("add", "").replace("to wishlist", "").trim();
+  speak("Added " + item + " to wishlist");
+  return addToWishlist(item);
+    
+  }
+
 
 }
+function addToWishlist(name) {
+  speak(`Added ${name} to your wishlist.`);
+  console.log(`❤️ ${name} added to wishlist`);
+}
+
 
 // === Helpers ===
 function navigateTo(page) {
@@ -542,6 +563,11 @@ function addToCart(name) {
     speak("Couldn't find any product matching " + name);
   }
 }
+function buyNow(name) {
+  // Navigate to checkout with product name as a query string
+  window.location.href = `checkout.php?product=${encodeURIComponent(name)}`;
+}
+
 let wishlist = [];
 
 function toggleWishlist(name, btnEl) {
@@ -566,7 +592,8 @@ function buyNow(name) {
     speak(`Proceeding to buy ${item.name}`);
     // Simulated redirect
     setTimeout(() => {
-      window.location.href = "checkout.php?product=" + encodeURIComponent(item.name);
+      window.location.href ="checkout.php?product=" + encodeURIComponent(item.name);
+}
     }, 1000);
   } else {
     speak("Couldn't find any product named " + name);
