@@ -177,7 +177,7 @@ footer {
 <div class="top-bar">
   <div class="logo-text">ARIVA</div>
   <div class="icon-row">
-    <a href="orders.php" class="icon-btn" title="Orders">🛍</a>
+    
     <a href="profile.php" class="icon-btn" title="Profile">👤</a>
     <a href="wishlist.php" class="icon-btn" title="Wishlist">❤️</a>
     <a href="cart.php" class="icon-btn" title="Cart">🛒</a>
