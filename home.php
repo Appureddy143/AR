@@ -1,10 +1,6 @@
 <?php
 // index.php
 ?>
-<?php
-// index.php
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -592,7 +588,7 @@ function buyNow(name) {
     speak(`Proceeding to buy ${item.name}`);
     // Simulated redirect
     setTimeout(() => {
-      window.location.href ="checkout.php?product=" + encodeURIComponent(item.name);
+      window.location.href ="checkout.php?product="${encodeURIComponent(name)}`;
 }
     }, 1000);
   } else {
