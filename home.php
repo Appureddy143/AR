@@ -151,6 +151,24 @@ footer {
 .product-actions { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:8px; align-items:center; }
 .icon-heart { font-size:18px; background:none; border:0; cursor:pointer; padding:6px; border-radius:6px; }
 .icon-heart.active { color:red; }
+  /* 🎤 Mic inside popup styling */
+.popup-mic {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: crimson;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+.popup-mic:hover {
+  transform: scale(1.1);
+}
 </style>
 </head>
 <body>
@@ -190,6 +208,8 @@ footer {
                   poster="images/loading.gif">
     </model-viewer>
     <p style="text-align:center; margin-top:10px;">Rotate, zoom, or view in AR (mobile supported)</p>
+        <!-- 🎤 Voice mic inside 3D popup -->
+    <button id="popupMic" class="popup-mic" title="Voice Control">🎤</button>
   </div>
 </div>
 
@@ -630,6 +650,52 @@ function openProductIn3D(name) {
 
 // addToWishlistByName defined in previous script tag
 
+</script>
+<script>
+// 🎤 Voice mic for model popup
+document.addEventListener("DOMContentLoaded", () => {
+  const popupMic = document.getElementById("popupMic");
+  const modelViewer = document.getElementById("modelViewer");
+
+  if (!popupMic || !modelViewer) return;
+
+  let recognizing = false;
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = "en-US";
+  recognition.continuous = false;
+
+  popupMic.addEventListener("click", () => {
+    if (!recognizing) {
+      recognition.start();
+      recognizing = true;
+      popupMic.style.background = "green";
+    } else {
+      recognition.stop();
+      recognizing = false;
+      popupMic.style.background = "crimson";
+    }
+  });
+
+  recognition.onresult = (event) => {
+    const cmd = event.results[0][0].transcript.toLowerCase();
+    console.log("Popup voice:", cmd);
+    speak("Command received: " + cmd);
+
+    // handle 3D model movement
+    if (cmd.includes("left")) modelViewer.cameraOrbit = "45deg 90deg 105%";
+    else if (cmd.includes("right")) modelViewer.cameraOrbit = "-45deg 90deg 105%";
+    else if (cmd.includes("up")) modelViewer.cameraOrbit = "0deg 45deg 105%";
+    else if (cmd.includes("down")) modelViewer.cameraOrbit = "0deg 135deg 105%";
+    else if (cmd.includes("zoom in")) modelViewer.cameraOrbit = "0deg 90deg 80%";
+    else if (cmd.includes("zoom out")) modelViewer.cameraOrbit = "0deg 90deg 120%";
+    else if (cmd.includes("close model") || cmd.includes("exit 3d")) closeModelView();
+    else speak("Command not understood");
+
+    recognition.stop();
+    recognizing = false;
+    popupMic.style.background = "crimson";
+  };
+});
 </script>
 
 </body>
