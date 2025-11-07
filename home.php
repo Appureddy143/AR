@@ -1,6 +1,9 @@
 <?php
 // index.php
 ?>
+<?php
+// index.php
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +60,6 @@ body {
 }
 .icon-btn:hover { background:rgba(255,255,255,0.15); }
 
-/* Container */
 .container {
   padding:20px;
   max-width:1200px;
@@ -65,7 +67,6 @@ body {
 }
 h2 { text-align:center; margin-bottom:10px; }
 
-/* Product Grid */
 .product-grid {
   display:flex;
   flex-wrap:wrap;
@@ -91,7 +92,6 @@ h2 { text-align:center; margin-bottom:10px; }
 .product-name { font-weight:600; margin-top:10px; }
 .product-price { color:var(--dark); font-weight:700; margin:6px 0; }
 
-/* Buttons */
 .btn {
   border:0;
   background:var(--accent);
@@ -104,7 +104,6 @@ h2 { text-align:center; margin-bottom:10px; }
 }
 .btn:hover { background:#ffe44d; }
 
-/* 3D Modal */
 .modal-bg {
   display:none;
   position:fixed;
@@ -150,6 +149,11 @@ footer {
   margin-left:8px;
   font-size:22px;
 }
+
+/* small style for wishlist heart inside product card */
+.product-actions { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:8px; align-items:center; }
+.icon-heart { font-size:18px; background:none; border:0; cursor:pointer; padding:6px; border-radius:6px; }
+.icon-heart.active { color:red; }
 </style>
 </head>
 <body>
@@ -198,207 +202,67 @@ footer {
 <script>
 // Product Data (using LOCAL GLB files)
 const products = [
-  {
-    name: "Modern Sofa",
-    price: 24999,
-    image: "models/sofa2.jpg",
-    model: "models/sofa.glb"
-  },
-  {
-    name: "Outdoor Chair",
-    price: 5999,
-    image: "models/chair_outdoor.jpg",
-    model: "models/chair_outdoor.glb"
-  },
-  {
-    name: "Closet",
-    price: 10999,
-    image: "models/closet.jpg",
-    model: "models/closet.glb"
-  },
-  {
-    name: "Bed",
-    price: 11999,
-    image: "models/bed 2.jpg",
-    model: "models/bed 2.glb"
-  },
-    {
-    name: "Ottoman",
-    price: 11999,
-    image: "models/ottoman.jpg",
-    model: "models/ottoman.glb"
-  },
-  {
-    name: "Leather Couch",
-    price: 25999,
-    image: "models/leather_couch.png",
-    model: "models/leather_couch.glb"
-  },
-  {
-    name: "Dresser",
-    price: 17999,
-    image: "models/dresser.jpg",
-    model: "models/dresser.glb"
-  },
-  {
-    name: "Modern Sofa",
-    price: 19999,
-    image: "models/modern_sofa.jpg",
-    model: "models/modern_sofa.glb"
-  },
-  {
-    name: "Office Chair",
-    price: 8999,
-    image: "models/office chair.png",
-    model: "models/office chair.glb"
-  },
-  {
-    name: "Outdoor Sofa",
-    price: 19999,
-    image: "models/outdoor_sofa.jpg",
-    model: "models/outdoors_sofa.glb"
-  },
-  {
-    name: "Sofa",
-    price: 10999,
-    image: "models/sofa2.jpg",
-    model: "models/sofa2.glb"
-  },
-  {
-    name: "TV Stand",
-    price: 14999,
-    image: "models/tv_stand.jpg",
-    model: "models/tv_stand.glb"
-  }, 
- {
-    name: "Ring",
-    price: 14999,
-    image: "models/ring_turtle.jpg",
-    model: "models/ring_with_turtle.glb"
-  }, 
- {
-    name: "Earrings",
-    price: 199,
-    image: "models/daisy_earrings.jpg",
-    model: "models/daisy_hoop_earrings_-_silver_and_gold.glb"
-  }, 
- {
-    name: "Bracelet",
-    price: 299,
-    image: "models/bracelet.jpg",
-    model: "models/bracelet.glb"
-  }, 
- {
-    name: "Indian jewellery",
-    price: 999,
-    image: "models/Indian_jewellery.jpg",
-    model: "models/Indian_jewellery.glb"
-  },
-{
-    name: "CMA Sunscreen",
-    price: 699,
-    image: "models/sunscreen.jpg",
-    model: "models/cosmetic_product.glb"
-  },
-{
-    name: "CC Cream",
-    price: 99,
-    image: "models/biege_cream.jpg",
-    model: "models/cosmetics_beige_cream_tube.glb"
-  },
-{
-    name: "Serum",
-    price: 499,
-    image: "models/serum.jpg",
-    model: "models/cosmetic_serum_bottle.glb"
-  },
-{
-    name: "Lipstick",
-    price: 99,
-    image: "models/lipstick.jpg",
-    model: "models/lipstick.glb"
-  },
-{
-    name: "TF Lipstick",
-    price: 149,
-    image: "models/lipstick_brown.jpg",
-    model: "models/lipstick_by_tom_ford.glb"
-  },
-{
-    name: "compact powder",
-    price: 199,
-    image: "models/compact.jpg",
-    model: "models/cosmetic_-_powder.glb"
-  },
-{
-    name: "Necklace",
-    price: 149,
-    image: "models/necklace.jpg",
-    model: "models/necklace_b.glb"
-  },
-{
-    name: "Cuban Chain",
-    price: 1999,
-    image: "models/cuban_chain.jpg",
-    model: "models/cuban_chain_3d_model.glb"
-  },
-  {
-    name: "Sun Glasses",
-    price: 399,
-    image: "models/glasses.jpg",
-    model: "models/00741558210359.glb"
-  }, 
-  {
-    name: "Rect Sun glasses",
-    price: 499,
-    image: "models/sun_glasses.jpg",
-    model: "models/sun_glasses.glb"
-  }, 
-  {
-    name: "Geometric Sun Glasses",
-    price: 599,
-    image: "models/sunglasses1.jpg",
-    model: "models/sun_glasses(1).glb"
-  }, 
-  {
-    name: "Round Sun glasses",
-    price: 399,
-    image: "models/sunglasses.jpg",
-    model: "models/sunglasses.glb"
-  }, 
-  {
-    name: "Spy Sun Glasses",
-    price: 999,
-    image: "models/sunglasses_spy.jpg",
-    model: "models/glasses_spy_tron_2_-_gafas_pbr.glb"
-  }, 
-  {
-    name: "Narrow Frame Sun Glasses",
-    price: 699,
-    image: "models/sunglasses_low.jpg",
-    model: "models/sun_glasses_-_low_poly.glb"
-  }, 
+  { name: "Modern Sofa", price: 24999, image: "models/sofa2.jpg", model: "models/sofa.glb" },
+  { name: "Outdoor Chair", price: 5999, image: "models/chair_outdoor.jpg", model: "models/chair_outdoor.glb" },
+  { name: "Closet", price: 10999, image: "models/closet.jpg", model: "models/closet.glb" },
+  { name: "Bed", price: 11999, image: "models/bed 2.jpg", model: "models/bed 2.glb" },
+  { name: "Ottoman", price: 11999, image: "models/ottoman.jpg", model: "models/ottoman.glb" },
+  { name: "Leather Couch", price: 25999, image: "models/leather_couch.png", model: "models/leather_couch.glb" },
+  { name: "Dresser", price: 17999, image: "models/dresser.jpg", model: "models/dresser.glb" },
+  { name: "Modern Sofa", price: 19999, image: "models/modern_sofa.jpg", model: "models/modern_sofa.glb" },
+  { name: "Office Chair", price: 8999, image: "models/office chair.png", model: "models/office chair.glb" },
+  { name: "Outdoor Sofa", price: 19999, image: "models/outdoor_sofa.jpg", model: "models/outdoors_sofa.glb" },
+  { name: "Sofa", price: 10999, image: "models/sofa2.jpg", model: "models/sofa2.glb" },
+  { name: "TV Stand", price: 14999, image: "models/tv_stand.jpg", model: "models/tv_stand.glb" },
+  { name: "Ring", price: 14999, image: "models/ring_turtle.jpg", model: "models/ring_with_turtle.glb" },
+  { name: "Earrings", price: 199, image: "models/daisy_earrings.jpg", model: "models/daisy_hoop_earrings_-_silver_and_gold.glb" },
+  { name: "Bracelet", price: 299, image: "models/bracelet.jpg", model: "models/bracelet.glb" },
+  { name: "Indian jewellery", price: 999, image: "models/Indian_jewellery.jpg", model: "models/Indian_jewellery.glb" },
+  { name: "CMA Sunscreen", price: 699, image: "models/sunscreen.jpg", model: "models/cosmetic_product.glb" },
+  { name: "CC Cream", price: 99, image: "models/biege_cream.jpg", model: "models/cosmetics_beige_cream_tube.glb" },
+  { name: "Serum", price: 499, image: "models/serum.jpg", model: "models/cosmetic_serum_bottle.glb" },
+  { name: "Lipstick", price: 99, image: "models/lipstick.jpg", model: "models/lipstick.glb" },
+  { name: "TF Lipstick", price: 149, image: "models/lipstick_brown.jpg", model: "models/lipstick_by_tom_ford.glb" },
+  { name: "compact powder", price: 199, image: "models/compact.jpg", model: "models/cosmetic_-_powder.glb" },
+  { name: "Necklace", price: 149, image: "models/necklace.jpg", model: "models/necklace_b.glb" },
+  { name: "Cuban Chain", price: 1999, image: "models/cuban_chain.jpg", model: "models/cuban_chain_3d_model.glb" },
+  { name: "Sun Glasses", price: 399, image: "models/glasses.jpg", model: "models/00741558210359.glb" },
+  { name: "Rect Sun glasses", price: 499, image: "models/sun_glasses.jpg", model: "models/sun_glasses.glb" },
+  { name: "Geometric Sun Glasses", price: 599, image: "models/sunglasses1.jpg", model: "models/sun_glasses(1).glb" },
+  { name: "Round Sun glasses", price: 399, image: "models/sunglasses.jpg", model: "models/sunglasses.glb" },
+  { name: "Spy Sun Glasses", price: 999, image: "models/sunglasses_spy.jpg", model: "models/glasses_spy_tron_2_-_gafas_pbr.glb" },
+  { name: "Narrow Frame Sun Glasses", price: 699, image: "models/sunglasses_low.jpg", model: "models/sun_glasses_-_low_poly.glb" },
 ];
+
+// state
+let cart = [];
+let wishlist = [];
 
 // Render products
 const grid = document.getElementById('productGrid');
-products.forEach(p => {
+products.forEach((p, idx) => {
   const card = document.createElement('div');
   card.className = 'product-card';
+  // Use data-index attribute to reference product reliably
+  card.setAttribute('data-index', idx);
   card.innerHTML = `
-  <img src="${p.image}" alt="${p.name}">
-  <div class="product-name">${p.name}</div>
-  <div class="product-price">₹${p.price.toLocaleString()}</div>
-  <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:8px;">
-    <button class="btn" onclick="openModelView('${p.name}', '${p.model}')">👁 View in 3D / AR</button>
-    <button class="btn" onclick="addToCart('${p.name}')">🛒 Add to Cart</button>
-    <button class="btn" onclick="buyNow('${p.name}')">💳 Buy Now</button>
-    <button class="icon-btn" onclick="toggleWishlist('${p.name}', this)" title="Add to Wishlist">❤️</button>
-  </div>
-`;
-
+    <img src="${p.image}" alt="${p.name}">
+    <div class="product-name">${p.name}</div>
+    <div class="product-price">₹${p.price.toLocaleString()}</div>
+    <div class="product-actions">
+      <button class="btn" onclick="openModelView('${escapeQuotes(p.name)}', '${escapeQuotes(p.model)}')">👁 View in 3D / AR</button>
+      <button class="btn" onclick="addToCart('${escapeQuotes(p.name)}')">🛒 Add to Cart</button>
+      <button class="btn" onclick="buyNow('${escapeQuotes(p.name)}')">💳 Buy Now</button>
+      <button class="icon-heart" id="heart-${idx}" onclick="toggleWishlistIndex(${idx})" title="Add to Wishlist">❤️</button>
+    </div>
+  `;
   grid.appendChild(card);
 });
+
+// helper to escape single quotes inside names for onclick strings
+function escapeQuotes(str) {
+  return String(str).replace(/'/g, "\\'");
+}
 
 // 3D Modal
 function openModelView(name, modelUrl) {
@@ -411,126 +275,201 @@ function closeModelView() {
   document.getElementById('modelModal').style.display = 'none';
   document.getElementById('modelViewer').removeAttribute('src');
 }
+
+// Wishlist toggle by product index (reliable)
+function toggleWishlistIndex(idx) {
+  const item = products[idx];
+  const heartEl = document.getElementById(`heart-${idx}`);
+  const exists = wishlist.find(p => p.name === item.name);
+  if (!exists) {
+    wishlist.push(item);
+    heartEl.classList.add('active');
+    speak(`${item.name} added to wishlist`);
+  } else {
+    wishlist = wishlist.filter(p => p.name !== item.name);
+    heartEl.classList.remove('active');
+    speak(`${item.name} removed from wishlist`);
+  }
+}
+
+// addToCart: accept name or exact match
+function addToCart(name) {
+  if (!name) { speak("Please tell which product to add"); return; }
+  const item = products.find(p => p.name.toLowerCase().includes(name.toLowerCase()));
+  if (item) {
+    cart.push(item);
+    speak(`Added ${item.name} to your cart.`);
+    console.log("Cart:", cart);
+  } else {
+    speak("Couldn't find any product matching " + name);
+  }
+}
+
+// buyNow: navigate to checkout with encoded product name
+function buyNow(name) {
+  if (!name) { speak("Please tell which product to buy"); return; }
+  const item = products.find(p => p.name.toLowerCase().includes(name.toLowerCase()));
+  if (item) {
+    speak(`Proceeding to buy ${item.name}`);
+    window.location.href = `checkout.php?product=${encodeURIComponent(item.name)}`;
+  } else {
+    // fallback: still navigate with the raw name
+    window.location.href = `checkout.php?product=${encodeURIComponent(name)}`;
+  }
+}
+
+// small helper when voice wishlist command uses addToWishlist
+function addToWishlistByName(name) {
+  const item = products.find(p => p.name.toLowerCase().includes(name.toLowerCase()));
+  if (item) {
+    // find index to mark heart active
+    const idx = products.findIndex(p => p.name === item.name);
+    if (idx >= 0) {
+      const heartEl = document.getElementById(`heart-${idx}`);
+      if (heartEl && !heartEl.classList.contains('active')) heartEl.classList.add('active');
+    }
+    if (!wishlist.find(p => p.name === item.name)) wishlist.push(item);
+    speak(`Added ${item.name} to your wishlist`);
+  } else {
+    speak("Couldn't find any product matching " + name);
+  }
+}
+
+// Speak helper
+function speak(text) {
+  const synth = window.speechSynthesis;
+  if (synth) {
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-IN';
+    synth.speak(utter);
+  } else {
+    console.log("Speak:", text);
+  }
+}
 </script>
 
 <!-- ====== VOICE CONTROL SCRIPT ====== -->
 <script>
 let recognizing = false;
 let recognition;
-let cart = [];
 const micBtn = document.getElementById('micBtn');
 
-if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SpeechRecognition();
-  recognition.continuous = false;
-  recognition.lang = 'en-IN';
-  recognition.interimResults = false;
+function setupSpeechRecognition() {
+  if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = 'en-IN';
+    recognition.interimResults = false;
 
-  recognition.onstart = () => {
-    recognizing = true;
-    micBtn.style.background = "#ffd600";
-  };
-  recognition.onend = () => {
-    recognizing = false;
-    micBtn.style.background = "none";
-  };
-  recognition.onerror = event => {
-    alert('Voice recognition error: ' + event.error);
-  };
+    recognition.onstart = () => {
+      recognizing = true;
+      micBtn.style.background = "#ffd600";
+    };
+    recognition.onend = () => {
+      recognizing = false;
+      micBtn.style.background = "none";
+    };
+    recognition.onerror = event => {
+      console.error('Voice recognition error:', event);
+      speak('Voice recognition error: ' + event.error);
+    };
 
-  recognition.onresult = event => {
-    let cmd = event.results[0][0].transcript.toLowerCase().trim();
-    console.log("🎤 Voice Command:", cmd);
-    handleVoiceCommand(cmd);
-  };
+    recognition.onresult = event => {
+      let cmd = event.results[0][0].transcript.toLowerCase().trim();
+      console.log("🎤 Voice Command:", cmd);
+      handleVoiceCommand(cmd);
+    };
 
-  micBtn.onclick = () => recognizing ? recognition.stop() : recognition.start();
-} else {
-  micBtn.style.display = "none";
-  alert("Sorry, your browser does not support voice recognition.");
+    micBtn.onclick = () => recognizing ? recognition.stop() : recognition.start();
+  } else {
+    micBtn.style.display = "none";
+    // Not too noisy on unsupported browsers
+    console.warn("SpeechRecognition not supported");
+  }
+}
+setupSpeechRecognition();
+
+// Normalize and remove filler words, helper
+function cleanCommand(cmd) {
+  return cmd.replace(/please/g, '').replace(/now/g, '').replace(/\bthe\b/g, '').replace(/\bon\b/g, '').trim();
 }
 
 // === Handle Commands ===
-function handleVoiceCommand(cmd) {
-  if (cmd.includes("open cart")) return navigateTo("cart.php");
-  if (cmd.includes("open wishlist")) return navigateTo("wishlist.php");
+function handleVoiceCommand(rawCmd) {
+  const cmd = cleanCommand(rawCmd);
+  // navigation
+  if (cmd.includes("open cart") || cmd.includes("go to cart")) return navigateTo("cart.php");
+  if (cmd.includes("open wishlist") || cmd.includes("go to wishlist")) return navigateTo("wishlist.php");
   if (cmd.includes("open profile")) return navigateTo("profile.php");
   if (cmd.includes("open orders")) return navigateTo("orders.php");
 
-  if (cmd.startsWith("show") || cmd.startsWith("find")) {
-    let item = cmd.replace("show", "").replace("find", "").trim();
-    return highlightProduct(item);
-  }
-
-  if ((cmd.includes("open") && cmd.includes("3d")) || (cmd.includes("open") && cmd.includes("ar"))) {
-    let item = cmd.replace("open", "").replace("in 3d", "").replace("in ar", "").trim();
-    return openProductIn3D(item);
-  }
-
-  if (cmd.startsWith("add")) {
-    let item = cmd.replace("add", "").replace("to cart", "").trim();
-    return addToCart(item);
-  }
-
-  if (cmd.includes("close model") || cmd.includes("close viewer")) {
+  // close viewer
+  if (cmd.includes("close model") || cmd.includes("close viewer") || cmd.includes("close 3d")) {
     speak("Closing viewer");
     return closeModelView();
   }
 
+  // 3D / AR open (phrases like "open sofa in 3d" or "open sofa in ar")
+  if ((cmd.includes("open") && (cmd.includes("3d") || cmd.includes("ar"))) || cmd.includes("view in 3d") || cmd.includes("view in ar")) {
+    // Extract product name: remove 'open', 'in 3d', 'in ar', 'view', 'show'
+    let item = cmd.replace(/open|view|show/g, '').replace(/in 3d|in ar|3d|ar/g, '').trim();
+    if (item) return openProductIn3D(item);
+  }
+
+  // Buy commands: "buy lipstick" or "buy lipstick now"
+  if (cmd.startsWith("buy ") || cmd.startsWith("purchase ") || cmd.startsWith("i want to buy ")) {
+    // remove leading words
+    let item = cmd.replace(/^(buy|purchase|i want to buy)\s+/g, '').trim();
+    if (item) return buyNow(item);
+  }
+
+  // Add to wishlist voice: "add ring to wishlist" or "wishlist ring"
+  if (cmd.includes("wishlist") || cmd.includes("favorite") || cmd.includes("add to wishlist") || cmd.includes("add heart")) {
+    // remove words
+    let item = cmd.replace(/add|to|wishlist|favorite|heart|please/g, '').trim();
+    if (!item) {
+      // maybe user said "open wishlist"
+      if (cmd.includes("open wishlist")) return navigateTo("wishlist.php");
+      speak("Please say which product to add to wishlist.");
+      return;
+    }
+    return addToWishlistByName(item);
+  }
+
+  // Add to cart: "add sofa to cart" or "add to cart sofa"
+  if (cmd.includes("add") && cmd.includes("cart") || cmd.includes("add to cart")) {
+    let item = cmd.replace(/add|to|cart|please/g, '').trim();
+    if (item) return addToCart(item);
+  }
+  // Also allow "add [product]" (without 'to cart') to add to cart
+  if (cmd.startsWith("add ")) {
+    let item = cmd.replace(/^add\s+/g, '').trim();
+    // if it's not a wishlist command
+    if (!(item.includes("wishlist") || item.includes("favorite"))) return addToCart(item);
+  }
+
+  // Fallback: search/show product
+  if (cmd.startsWith("show ") || cmd.startsWith("find ")) {
+    let item = cmd.replace(/^(show|find)\s+/g, '').trim();
+    return highlightProduct(item);
+  }
+
   speak("Sorry, I didn't understand that command.");
-    // Wishlist command
-  if (cmd.includes("wishlist") || cmd.includes("favorite") || cmd.includes("heart")) {
-    let item = cmd.replace("add", "").replace("to wishlist", "").replace("wishlist", "").replace("favorite", "").replace("heart", "").trim();
-    return addToWishlistByVoice(item);
-  }
-
-  // Buy Now command
-  if (cmd.startsWith("buy")) {
-    let item = cmd.replace("buy", "").trim();
-    return buyNow(item);
-  }
-  if (cmd.startsWith("buy")) {
-  let item = cmd.replace("buy", "").replace("now", "").trim();
-  speak("Buying " + item);
-  return buyNow(item);
-    
-  }
-  if (cmd.includes("add") && cmd.includes("wishlist")) {
-  let item = cmd.replace("add", "").replace("to wishlist", "").trim();
-  speak("Added " + item + " to wishlist");
-  return addToWishlist(item);
-    
-  }
-
-
-}
-function addToWishlist(name) {
-  speak(`Added ${name} to your wishlist.`);
-  console.log(`❤️ ${name} added to wishlist`);
 }
 
-
-// === Helpers ===
+// Helpers (some were defined earlier in other script block; ensure accessible)
 function navigateTo(page) {
   speak("Opening " + page.replace(".php", ""));
   window.location.href = page;
 }
-function addToWishlistByVoice(name) {
-  const item = products.find(p => p.name.toLowerCase().includes(name.toLowerCase()));
-  if (item) {
-    wishlist.push(item);
-    speak(`Added ${item.name} to your wishlist.`);
-  } else {
-    speak("Couldn't find any product named " + name);
-  }
-}
-
 function highlightProduct(name) {
+  if(!name) { speak("Please say product name"); return; }
+  const needle = name.toLowerCase();
   let found = false;
   document.querySelectorAll(".product-card").forEach(card => {
-    if(card.innerText.toLowerCase().includes(name)) {
-      card.scrollIntoView({behavior:'smooth'});
+    if(card.innerText.toLowerCase().includes(needle)) {
+      card.scrollIntoView({behavior:'smooth', block: 'center'});
       card.style.border = "2px solid var(--accent)";
       found = true;
       speak("Showing " + name);
@@ -540,71 +479,25 @@ function highlightProduct(name) {
   if(!found) speak("Couldn't find any product matching " + name);
 }
 function openProductIn3D(name) {
+  if(!name) { speak("Please say product name"); return; }
+  const needle = name.toLowerCase();
   let found = false;
-  products.forEach(p => {
-    if (p.name.toLowerCase().includes(name)) {
+  for (const p of products) {
+    if (p.name.toLowerCase().includes(needle)) {
       openModelView(p.name, p.model);
       found = true;
       speak("Opening " + p.name + " in 3D viewer");
+      break;
     }
-  });
+  }
   if(!found) speak("No 3D model found for " + name);
 }
-function addToCart(name) {
-  let found = products.find(p => p.name.toLowerCase().includes(name));
-  if (found) {
-    cart.push(found);
-    speak(`Added ${found.name} to your cart.`);
-  } else {
-    speak("Couldn't find any product matching " + name);
-  }
-}
-function buyNow(name) {
-  // Navigate to checkout with product name as a query string
-  window.location.href = `checkout.php?product=${encodeURIComponent(name)}`;
-}
 
-let wishlist = [];
+// addToCart is defined in previous script tag but ensure accessible here (it is)
 
-function toggleWishlist(name, btnEl) {
-  const index = wishlist.findIndex(p => p.name === name);
-  if (index === -1) {
-    const item = products.find(p => p.name === name);
-    if (item) {
-      wishlist.push(item);
-      btnEl.style.color = "red";
-      speak(`${name} added to wishlist`);
-    }
-  } else {
-    wishlist.splice(index, 1);
-    btnEl.style.color = "";
-    speak(`${name} removed from wishlist`);
-  }
-}
+// addToWishlistByName defined in previous script tag
 
-function buyNow(name) {
-  const item = products.find(p => p.name.toLowerCase().includes(name.toLowerCase()));
-  if (item) {
-    speak(`Proceeding to buy ${item.name}`);
-    // Simulated redirect
-    setTimeout(() => {
-      window.location.href ="checkout.php?product="${encodeURIComponent(name)}`;
-}
-    }, 1000);
-  } else {
-    speak("Couldn't find any product named " + name);
-  }
-}
-
-function speak(text) {
-  const synth = window.speechSynthesis;
-  if (synth) {
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'en-IN';
-    synth.speak(utter);
-  } else alert(text);
-}
 </script>
 
 </body>
-</html>   
+</html>
