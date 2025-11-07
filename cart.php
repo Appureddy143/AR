@@ -15,7 +15,7 @@ a { text-decoration:none; color:#000; background:#ffd600; padding:10px 16px; bor
 </body>
   <script>
 const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+
 
 const container = document.getElementById("cartContainer"); // or wishlistContainer
 if (container && cart.length > 0) {
