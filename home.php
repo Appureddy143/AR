@@ -449,8 +449,7 @@ function handleVoiceCommand(rawCmd) {
     // remove words
     let item = cmd.replace(/add|to|wishlist|favorite|heart|please/g, '').trim();
     if (!item) {
-      // maybe user said "open wishlist"
-      if (cmd.includes("open wishlist")) return navigateTo("wishlist.php");
+      
       speak("Please say which product to add to wishlist.");
       return;
     }
